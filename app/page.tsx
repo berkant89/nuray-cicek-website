@@ -9,34 +9,474 @@ const appointment = `mailto:${MAIL}?subject=Randevu%20Talebi`;
 function Header() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  useEffect(() => { const onScroll = () => setScrolled(window.scrollY > 25); onScroll(); window.addEventListener("scroll", onScroll); return () => window.removeEventListener("scroll", onScroll); }, []);
-  return <header className={`site-header ${scrolled ? "scrolled" : ""}`}><div className="container nav-wrap">
-    <a className="brand" href="#hero" aria-label="Ana sayfa">Nuray <span>Çiçek</span><small>Eczacı Klinik Psikolog</small></a>
-    <button className="menu-toggle" aria-label={open ? "Menüyü kapat" : "Menüyü aç"} aria-expanded={open} onClick={() => setOpen(!open)}><span /><span /><span /></button>
-    <nav className={`main-nav ${open ? "open" : ""}`} aria-label="Ana menü">
-      {[["#about", "Hakkımda"], ["#services", "Çalışma Alanları"], ["#process", "Terapi Süreci"], ["#faq", "SSS"], ["#contact", "İletişim"]].map(([href, label]) => <a key={href} href={href} onClick={() => setOpen(false)}>{label}</a>)}
-      <a className="nav-appointment" href={appointment}>Randevu Al</a>
-    </nav>
-  </div></header>;
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 25);
+    onScroll();
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+  return (
+    <header className={`site-header ${scrolled ? "scrolled" : ""}`}>
+      <div className="container nav-wrap">
+        <a className="brand" href="#hero" aria-label="Ana sayfa">
+          Nuray <span>Çiçek</span>
+          <small>Eczacı Klinik Psikolog</small>
+        </a>
+        <button
+          className="menu-toggle"
+          aria-label={open ? "Menüyü kapat" : "Menüyü aç"}
+          aria-expanded={open}
+          onClick={() => setOpen(!open)}
+        >
+          <span />
+          <span />
+          <span />
+        </button>
+        <nav className={`main-nav ${open ? "open" : ""}`} aria-label="Ana menü">
+          {[
+            ["#about", "Hakkımda"],
+            ["#education", "Eğitim ve Sertifikalar"],
+            ["#services", "Çalışma Alanları"],
+            ["#process", "Terapi Süreci"],
+            ["#faq", "SSS"],
+            ["#contact", "İletişim"],
+          ].map(([href, label]) => (
+            <a key={href} href={href} onClick={() => setOpen(false)}>
+              {label}
+            </a>
+          ))}
+          <a className="nav-appointment" href={appointment}>
+            Randevu Al
+          </a>
+        </nav>
+        <a
+          className="instagram-link"
+          href="https://www.instagram.com/eczpsknuray/"
+          target="_blank"
+          rel="noreferrer"
+          aria-label="Instagram hesabını yeni sekmede aç"
+        >
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <rect x="3" y="3" width="18" height="18" rx="5" />
+            <circle cx="12" cy="12" r="4" />
+            <circle className="instagram-dot" cx="17.5" cy="6.5" r="1" />
+          </svg>
+          <span>E-randevu</span>
+        </a>
+      </div>
+    </header>
+  );
 }
 
-const supportAreas = [["⌁", "Kaygı & Stres", "Yoğun kaygı, duygu düzenleme ve stresle baş etme."], ["◎", "İlişkiler", "İletişim problemleri, bağ kurma ve sınır koyma süreçleri."], ["◒", "Kariyer & Tükenmişlik", "İş yaşamındaki krizler, yön değişimleri ve tükenmişlik."], ["◌", "Sosyal Beceriler", "Girişkenlik, sosyal uyum ve kendini daha rahat ifade etme."]];
-const training = [["2025", "Aile Danışmanlığı Eğitimi", "MEB Tecrübe Akademi · Psikoterapist Gökhan Çınar"], ["2025", "MMPI Uygulama ve Yorumlama", "Türk Psikologlar Derneği Sürekli Eğitim Merkezi · 32 saat"], ["2024", "Şema Terapi", "Dr. Psikolog Ayça Ferda Kansu"], ["2024", "Kabul ve Kararlılık Terapisi (ACT)", "Doç. Dr. Çağdaş Öykü Meriç · 36 saat"]];
-const faqs = [["İlk seans nasıl geçer?", "İlk seans, tanışma ve değerlendirme görüşmesidir. Terapiye getiren temel nedenleri, beklentilerinizi ve hayat hikâyenizi güvenli, yargısız bir ortamda konuşuruz."], ["Seans süresi ne kadar?", "Bireysel terapi seansları 45–50 dakika sürer. Seans sıklığı ve sürecin toplam süresi ihtiyaçlarınıza göre birlikte belirlenir."], ["Online terapi nasıl yapılır?", "Görüşmeler Zoom veya Google Meet gibi görüntülü platformlar üzerinden gerçekleştirilir. Sessiz, yalnız ve internet bağlantısı iyi olan bir ortam yeterlidir."], ["Ücret bilgisini nasıl öğrenebilirim?", "Randevu veya bilgi talebiniz için e-posta yoluyla iletişime geçebilirsiniz."]];
+const supportAreas = [
+  [
+    "⌁",
+    "Kaygı ve Stres",
+    "Günlük yaşamda kaygı, yoğun stres, endişe ve zihinsel yoğunlukla başa çıkma.",
+  ],
+  [
+    "◒",
+    "Depresyon ve Duygudurum",
+    "İçe kapanma, isteksizlik, çökkünlük ve yaşamdan alınan keyifte azalma üzerine çalışma.",
+  ],
+  [
+    "◐",
+    "Öfke Problemleri",
+    "Öfkeyi fark etme, ifade etme ve daha sağlıklı biçimde yönetme.",
+  ],
+  [
+    "◌",
+    "Özgüven, Özdeğer ve Yetersizlik Hissi",
+    "Kendini yetersiz veya değersiz hissetme, kendini eleştirme ve kişinin kendisiyle daha sağlıklı bir ilişki kurması.",
+  ],
+  [
+    "◎",
+    "İlişkiler ve Bağlanma",
+    "Romantik ilişkilerde yaşanan sorunlar, iletişim güçlükleri, sınırlar ve tekrarlayan ilişki döngüleri.",
+  ],
+  [
+    "⌂",
+    "Aile ve Aile İçi İlişkiler",
+    "Aile içi iletişim, çatışmalar, sınır koyma ve ilişkisel sorunlar üzerine çalışma.",
+  ],
+  [
+    "◑",
+    "Kayıp ve Yas Süreci",
+    "Yaşanan kayıpların ardından ortaya çıkan duygularla baş etme ve yas sürecine eşlik etme.",
+  ],
+  [
+    "◍",
+    "Sosyal Beceriler",
+    "İletişim kurma, kendini ifade etme, sınır koyma ve sosyal ortamlarda daha rahat hissetme.",
+  ],
+];
+const training = [
+  [
+    "2025",
+    "Aile Danışmanlığı Eğitimi",
+    "MEB Tecrübe Akademi · Psikoterapist Gökhan Çınar",
+  ],
+  [
+    "2025",
+    "Türk Psikologlar Derneği Sürekli Eğitim Merkezi – MMPI Uygulama ve Yorumlama",
+    "Dr. Öğr. Üyesi Sezin Andiç · 32 saat",
+  ],
+  ["2024", "Şema Terapi", "Dr. Psikolog Ayça Ferda Kansu"],
+  [
+    "2024",
+    "Kabul ve Adanmışlık Terapisi Eğitimi (ACT)",
+    "Doç. Dr. Çağdaş Öykü Meriç · 36 saat",
+  ],
+];
+const faqs = [
+  [
+    "İlk seans nasıl geçer?",
+    "İlk seans, tanışma ve değerlendirme görüşmesidir. Terapiye getiren temel nedenleri, beklentilerinizi ve hayat hikâyenizi güvenli, yargısız bir ortamda konuşuruz.",
+  ],
+  [
+    "Seans süresi ne kadar?",
+    "Bireysel terapi seansları 45–50 dakika sürer. Seans sıklığı ve sürecin toplam süresi ihtiyaçlarınıza göre birlikte belirlenir.",
+  ],
+  [
+    "Online terapi nasıl yapılır?",
+    "Görüşmeler Zoom veya Google Meet gibi görüntülü platformlar üzerinden gerçekleştirilir. Sessiz, yalnız ve internet bağlantısı iyi olan bir ortam yeterlidir.",
+  ],
+  [
+    "Ücret bilgisini nasıl öğrenebilirim?",
+    "Randevu veya bilgi talebiniz için e-posta yoluyla iletişime geçebilirsiniz.",
+  ],
+];
 
 export default function Home() {
-  useEffect(() => { const observer = new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add("visible"); observer.unobserve(e.target); } }), { threshold: .12 }); document.querySelectorAll(".reveal").forEach(el => observer.observe(el)); return () => observer.disconnect(); }, []);
-  return <><Header /><main id="main">
-    <section className="hero" id="hero"><div className="hero-shape" /><div className="container hero-grid"><div className="hero-copy reveal"><p className="eyebrow">Online bireysel terapi</p><h1>Kendinize daha şefkatli bir yerden <em>yaklaşın.</em></h1><p className="hero-text">Hayatınızdaki zorlukları anlamlandırmak ve size uygun bir yol haritası oluşturmak için güvenli bir alan.</p><div className="hero-actions"><a className="button button-primary" href={appointment}>Randevu Al <span>→</span></a><a className="button button-text" href="#about">Beni tanıyın <span>↓</span></a></div><div className="hero-note"><span className="note-icon">✓</span> Gizlilik ilkesiyle, tamamen size özel bir süreç</div></div><div className="hero-image-wrap reveal"><div className="image-arch"><Image src="/images/arkaplan1.jpg" alt="Eczacı Klinik Psikolog Nuray Çiçek" fill priority sizes="(max-width: 850px) 90vw, 415px" /></div><div className="credential-card"><span>Yaklaşım</span><strong>Şema Terapi<br />&amp; ACT</strong></div></div></div></section>
-    <section className="intro-strip"><div className="container"><p>“Değişim, kendimizi olduğumuz gibi kabul etmeye başladığımızda mümkün olur.”</p><span>— Carl Rogers</span></div></section>
-    <section className="section about" id="about"><div className="container two-col"><div className="about-image reveal"><Image src="/images/ofis_1.jpg" alt="Sakin ve güvenli terapi ortamı" fill sizes="(max-width: 850px) 100vw, 470px" /><div className="image-label">Online • Güvenli • Size özel</div></div><div className="section-copy reveal"><p className="eyebrow">Hakkımda</p><h2>Yargısız, bilimsel ve size eşlik eden bir yaklaşım.</h2><p>Merhaba, ben Eczacı Klinik Psikolog Nuray Çiçek. İstanbul Üniversitesi Eczacılık Fakültesi&apos;nden mezun olduktan sonra, tam burslu olarak Nişantaşı Üniversitesi Psikoloji Bölümü&apos;nü tamamladım.</p><p>İki mesleğimin birbirini tamamladığına inanıyor; terapi sürecinde danışanların ilaçlar ve besin takviyeleri konusunda doğru bilgiye erişmesini de destekliyorum. Türk Psikologlar Derneği üyesiyim.</p><a className="inline-link" href="#education">Eğitim ve sertifikalar <span>→</span></a></div></div></section>
-    <section className="section education" id="education"><div className="container"><div className="section-heading reveal"><p className="eyebrow">Eğitim &amp; uzmanlık</p><h2>Bilimsel temellere dayanan çalışmalar.</h2></div><div className="timeline reveal">{training.map(([year, title, detail]) => <article key={title}><span>{year}</span><div><h3>{title}</h3><p>{detail}</p></div></article>)}</div></div></section>
-    <section className="section services" id="services"><div className="container"><div className="section-heading centered reveal"><p className="eyebrow">Çalışma alanları</p><h2>Hayatın zorlayıcı taraflarında<br />yanınızdayım.</h2><p>Sadece yetişkin yaş grubuna yönelik, online bireysel terapi hizmeti sunuyorum.</p></div><div className="support-grid reveal">{supportAreas.map(([icon, title, text]) => <article key={title}><div className="icon">{icon}</div><h3>{title}</h3><p>{text}</p></article>)}</div></div></section>
-    <section className="section approach"><div className="container approach-grid"><div className="reveal"><p className="eyebrow">Terapi yaklaşımım</p><h2>Sizin için anlamlı olan hayatı birlikte kurmak.</h2></div><div className="approach-text reveal"><p>Çalışmalarımı, bilimsel geçerliliği yüksek Şema Terapi ve Kabul ve Kararlılık Terapisi (ACT) kuramsal temelleriyle yürütüyorum.</p><div className="approach-points"><span><b>01</b> İhtiyaçlarınıza göre şekillenen bireysel plan</span><span><b>02</b> Güven ve gizliliği merkezine alan ilişki</span><span><b>03</b> Zaman ve mekândan bağımsız online görüşmeler</span></div></div></div></section>
-    <section className="section process" id="process"><div className="container"><div className="section-heading centered reveal"><p className="eyebrow">Terapi süreci</p><h2>Adım adım, size uygun bir yol.</h2></div><div className="process-grid reveal">{[["Tanışma", "İlk görüşmede sizi buraya getiren konuları ve beklentilerinizi konuşuruz."], ["Değerlendirme", "İhtiyaçlarınızı ve kaynaklarınızı daha yakından tanımaya odaklanırız."], ["Yol haritası", "Hedeflerimizi birlikte belirler, size uygun bir terapi planı oluştururuz."], ["Süreç", "Düzenli seanslarla, değişiminize güvenli ve sürdürülebilir biçimde eşlik ederiz."]].map(([title,text], index) => <article key={title}><span>0{index + 1}</span><h3>{title}</h3><p>{text}</p></article>)}</div></div></section>
-    <section className="trust"><div className="container trust-grid"><div className="trust-word reveal">Güven,<br /><em>değişimin</em><br />başladığı yer.</div><div className="trust-list reveal">{[["Bilimsel yaklaşım", "Güncel ve kanıta dayalı terapi ekolleri"], ["Gizlilik ilkesi", "Size ait olan, özenle korunan bir alan"], ["Kolay erişim", "Online terapi ile bulunduğunuz her yerden destek"]].map(([title,text], index) => <div key={title}><span>0{index+1}</span><p><strong>{title}</strong>{text}</p></div>)}</div></div></section>
-    <section className="section faq" id="faq"><div className="container faq-layout"><div className="reveal"><p className="eyebrow">Sık sorulan sorular</p><h2>Merak ettikleriniz.</h2><p>Başlamadan önce aklınıza takılan soruların yanıtları burada.</p><a className="inline-link" href={`mailto:${MAIL}?subject=Bilgi%20Talebi`}>Başka bir sorunuz mu var? <span>→</span></a></div><div className="accordion reveal">{faqs.map(([question, answer], index) => <details key={question} open={index === 0}><summary>{question}<span>+</span></summary><p>{answer}</p></details>)}</div></div></section>
-    <section className="contact" id="contact"><div className="container contact-card reveal"><div><p className="eyebrow">İletişim</p><h2>Kendiniz için bir adım atmaya hazır mısınız?</h2><p>Randevu ve sorularınız için benimle e-posta veya Instagram üzerinden iletişime geçebilirsiniz.</p></div><div className="contact-actions"><a className="button button-light" href={appointment}>Randevu Al <span>→</span></a><a href={`mailto:${MAIL}`} className="contact-mail">{MAIL}</a><a href="https://www.instagram.com/eczpsknuray/" target="_blank" rel="noreferrer" className="contact-instagram">Instagram @eczpsknuray ↗</a></div></div></section>
-  </main><footer><div className="container footer-inner"><a className="brand" href="#hero">Nuray <span>Çiçek</span><small>Eczacı Klinik Psikolog</small></a><p>© {new Date().getFullYear()} Nuray Çiçek. Tüm hakları saklıdır.</p><div><a href={`mailto:${MAIL}?subject=KVKK%20ve%20Gizlilik%20Metni`}>KVKK &amp; Gizlilik</a><a href={`mailto:${MAIL}?subject=İptal%20Şartları`}>İptal Şartları</a></div></div></footer><a className="whatsapp" href={appointment} aria-label="Randevu için e-posta gönderin">✉<span>Randevu</span></a>
-  </>;
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) =>
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.classList.add("visible");
+            observer.unobserve(e.target);
+          }
+        }),
+      { threshold: 0.12 },
+    );
+    document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
+  return (
+    <>
+      <Header />
+      <main id="main">
+        <section className="hero" id="hero">
+          <div className="hero-shape" />
+          <div className="container hero-grid">
+            <div className="hero-copy reveal">
+              <p className="eyebrow">Online bireysel terapi</p>
+              <h1>
+                Kendinize daha şefkatli bir yerden <em>yaklaşın.</em>
+              </h1>
+              <p className="hero-text">
+                Hayatınızdaki zorlukları anlamlandırmak ve size uygun bir yol
+                haritası oluşturmak için güvenli bir alan.
+              </p>
+              <div className="hero-actions">
+                <a className="button button-primary" href={appointment}>
+                  Randevu Al <span>→</span>
+                </a>
+                <a className="button button-text" href="#about">
+                  Beni tanıyın <span>↓</span>
+                </a>
+              </div>
+              <div className="hero-note">
+                <span className="note-icon">✓</span> Gizlilik ilkesiyle, tamamen
+                size özel bir süreç
+              </div>
+            </div>
+            <div className="hero-image-wrap reveal">
+              <div className="image-arch">
+                <Image
+                  src="/images/arkaplan1.jpg"
+                  alt="Eczacı Klinik Psikolog Nuray Çiçek"
+                  fill
+                  priority
+                  sizes="(max-width: 850px) 90vw, 415px"
+                />
+              </div>
+              <div className="credential-card">
+                <span>Yaklaşım</span>
+                <strong>
+                  Şema Terapi
+                  <br />
+                  &amp; ACT
+                </strong>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section className="intro-strip">
+          <div className="container">
+            <p>
+              “Değişim, kendimizi olduğumuz gibi kabul etmeye başladığımızda
+              mümkün olur.”
+            </p>
+            <span>— Carl Rogers</span>
+          </div>
+        </section>
+        <section className="section about" id="about">
+          <div className="container two-col">
+            <div className="about-image reveal">
+              <Image
+                src="/images/ofis_1.jpg"
+                alt="Sakin ve güvenli terapi ortamı"
+                fill
+                sizes="(max-width: 850px) 100vw, 470px"
+              />
+              <div className="image-label">Online • Güvenli • Size özel</div>
+            </div>
+            <div className="section-copy reveal">
+              <p className="eyebrow">Hakkımda</p>
+              <h2>Yargısız, bilimsel ve size eşlik eden bir yaklaşım.</h2>
+              <p>
+                Merhaba, ben Eczacı Klinik Psikolog Nuray Çiçek. İstanbul
+                Üniversitesi Eczacılık Fakültesi&apos;nden mezun olduktan sonra,
+                tam burslu olarak Nişantaşı Üniversitesi Psikoloji
+                Bölümü&apos;nü tamamladım.
+              </p>
+              <p>
+                İki mesleğimin birbirini tamamladığına inanıyor; terapi
+                sürecinde danışanların ilaçlar ve besin takviyeleri konusunda
+                doğru bilgiye erişmesini de destekliyorum. Türk Psikologlar
+                Derneği üyesiyim.
+              </p>
+              <a className="inline-link" href="#education">
+                Eğitim ve sertifikalar <span>→</span>
+              </a>
+            </div>
+          </div>
+        </section>
+        <section className="section education" id="education">
+          <div className="container">
+            <div className="section-heading reveal">
+              <p className="eyebrow">Eğitim &amp; uzmanlık</p>
+              <h2>Bilimsel temellere dayanan çalışmalar.</h2>
+            </div>
+            <div className="timeline reveal">
+              {training.map(([year, title, detail]) => (
+                <article key={title}>
+                  <span>{year}</span>
+                  <div>
+                    <h3>{title}</h3>
+                    <p>{detail}</p>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+        <section className="section services" id="services">
+          <div className="container">
+            <div className="section-heading centered reveal">
+              <p className="eyebrow">Çalışma alanları</p>
+              <h2>
+                Hayatın zorlayıcı taraflarında
+                <br />
+                yanınızdayım.
+              </h2>
+              <p>
+                Sadece yetişkin yaş grubuna yönelik, online bireysel terapi
+                hizmeti sunuyorum.
+              </p>
+            </div>
+            <div className="support-grid reveal">
+              {supportAreas.map(([icon, title, text]) => (
+                <article key={title}>
+                  <div className="icon">{icon}</div>
+                  <h3>{title}</h3>
+                  <p>{text}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+        <section className="section approach">
+          <div className="container approach-grid">
+            <div className="reveal">
+              <p className="eyebrow">Terapi yaklaşımım</p>
+              <h2>Sizin için anlamlı olan hayatı birlikte kurmak.</h2>
+            </div>
+            <div className="approach-text reveal">
+              <p>
+                Çalışmalarımı, bilimsel geçerliliği yüksek Şema Terapi ve Kabul
+                ve Kararlılık Terapisi (ACT) kuramsal temelleriyle yürütüyorum.
+              </p>
+              <div className="approach-points">
+                <span>
+                  <b>01</b> İhtiyaçlarınıza göre şekillenen bireysel plan
+                </span>
+                <span>
+                  <b>02</b> Güven ve gizliliği merkezine alan ilişki
+                </span>
+                <span>
+                  <b>03</b> Zaman ve mekândan bağımsız online görüşmeler
+                </span>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section className="section process" id="process">
+          <div className="container">
+            <div className="section-heading centered reveal">
+              <p className="eyebrow">Terapi süreci</p>
+              <h2>Adım adım, size uygun bir yol.</h2>
+            </div>
+            <div className="process-grid reveal">
+              {[
+                [
+                  "Tanışma",
+                  "İlk görüşmede sizi buraya getiren konuları ve beklentilerinizi konuşuruz.",
+                ],
+                [
+                  "Değerlendirme",
+                  "İhtiyaçlarınızı ve kaynaklarınızı daha yakından tanımaya odaklanırız.",
+                ],
+                [
+                  "Yol haritası",
+                  "Hedeflerimizi birlikte belirler, size uygun bir terapi planı oluştururuz.",
+                ],
+                [
+                  "Süreç",
+                  "Düzenli seanslarla, değişiminize güvenli ve sürdürülebilir biçimde eşlik ederiz.",
+                ],
+              ].map(([title, text], index) => (
+                <article key={title}>
+                  <span>0{index + 1}</span>
+                  <h3>{title}</h3>
+                  <p>{text}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+        <section className="trust">
+          <div className="container trust-grid">
+            <div className="trust-word reveal">
+              Güven,
+              <br />
+              <em>değişimin</em>
+              <br />
+              başladığı yer.
+            </div>
+            <div className="trust-list reveal">
+              {[
+                [
+                  "Bilimsel yaklaşım",
+                  "Güncel ve kanıta dayalı terapi ekolleri",
+                ],
+                ["Gizlilik ilkesi", "Size ait olan, özenle korunan bir alan"],
+                [
+                  "Kolay erişim",
+                  "Online terapi ile bulunduğunuz her yerden destek",
+                ],
+              ].map(([title, text], index) => (
+                <div key={title}>
+                  <span>0{index + 1}</span>
+                  <p>
+                    <strong>{title}</strong>
+                    {text}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+        <section className="section faq" id="faq">
+          <div className="container faq-layout">
+            <div className="reveal">
+              <p className="eyebrow">Sık sorulan sorular</p>
+              <h2>Merak ettikleriniz.</h2>
+              <p>
+                Başlamadan önce aklınıza takılan soruların yanıtları burada.
+              </p>
+              <a
+                className="inline-link"
+                href={`mailto:${MAIL}?subject=Bilgi%20Talebi`}
+              >
+                Başka bir sorunuz mu var? <span>→</span>
+              </a>
+            </div>
+            <div className="accordion reveal">
+              {faqs.map(([question, answer], index) => (
+                <details key={question} open={index === 0}>
+                  <summary>
+                    {question}
+                    <span>+</span>
+                  </summary>
+                  <p>{answer}</p>
+                </details>
+              ))}
+            </div>
+          </div>
+        </section>
+        <section className="contact" id="contact">
+          <div className="container contact-card reveal">
+            <div>
+              <p className="eyebrow">İletişim</p>
+              <h2>Kendiniz için bir adım atmaya hazır mısınız?</h2>
+              <p>
+                Randevu ve sorularınız için benimle e-posta veya Instagram
+                üzerinden iletişime geçebilirsiniz.
+              </p>
+            </div>
+            <div className="contact-actions">
+              <a className="button button-light" href={appointment}>
+                Randevu Al <span>→</span>
+              </a>
+              <a href={`mailto:${MAIL}`} className="contact-mail">
+                {MAIL}
+              </a>
+              <a
+                href="https://www.instagram.com/eczpsknuray/"
+                target="_blank"
+                rel="noreferrer"
+                className="contact-instagram"
+              >
+                Instagram @eczpsknuray ↗
+              </a>
+            </div>
+          </div>
+        </section>
+      </main>
+      <footer>
+        <div className="container footer-inner">
+          <a className="brand" href="#hero">
+            Nuray <span>Çiçek</span>
+            <small>Eczacı Klinik Psikolog</small>
+          </a>
+          <a
+            className="design-credit"
+            href="https://wa.me/905555597505"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="Berkan Satın'a WhatsApp üzerinden mesaj gönder"
+          >
+            Tasarım Destek © 2026 v1.2 Berkan Satın
+          </a>
+          <div>
+            <a href={`mailto:${MAIL}?subject=KVKK%20ve%20Gizlilik%20Metni`}>
+              KVKK &amp; Gizlilik
+            </a>
+            <a href={`mailto:${MAIL}?subject=İptal%20Şartları`}>
+              İptal Şartları
+            </a>
+          </div>
+        </div>
+      </footer>
+      <a
+        className="whatsapp"
+        href={appointment}
+        aria-label="Randevu için e-posta gönderin"
+      >
+        ✉<span>Randevu</span>
+      </a>
+    </>
+  );
 }
